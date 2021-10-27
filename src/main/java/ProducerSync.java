@@ -1,10 +1,11 @@
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 
 import java.util.Properties;
 
-public class Producer {
-    public static void main(String[] args) {
+public class ProducerSync {
+    public static void main(String[] args) throws Exception {
         System.out.println("**** Starting Basic Producer ****");
 
         Properties settings = new Properties();
@@ -26,7 +27,11 @@ public class Producer {
             final String key = "key-" + i;
             final String value = "value-" + i;
             final ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
-            producer.send(record);
+            RecordMetadata metadata = producer.send(record).get();
+            System.out.println(metadata.topic());
+            System.out.println(metadata.partition());
+            System.out.println(metadata.timestamp());
+            System.out.println(metadata.offset());
         }
 
     }
