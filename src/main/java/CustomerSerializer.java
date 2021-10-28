@@ -33,7 +33,7 @@ public class CustomerSerializer implements Serializer<Customer> {
                 }
 
                 ByteBuffer buffer = ByteBuffer.allocate(4 + 4 + stringSize);
-                buffer.putInt(customer.getId());
+                //buffer.put(customer.getId());
                 buffer.putInt(stringSize);
                 buffer.put(serializedName);
 
