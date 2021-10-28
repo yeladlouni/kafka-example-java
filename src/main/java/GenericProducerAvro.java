@@ -16,13 +16,9 @@ public class GenericProducerAvro {
 
         final String topic = "customer_avro_generic_topic";
 
-        String schemaString = "{\"namespace\": \"customerManagement.avro\"," +         // Provide the Avro schema
-                "\"type\": \"record\", " +
-                "\"name\": \"Customer\"," +
-                "\"fields\": [" +
-                "{\"name\": \"id\", \"type\": \"int\"}," +
-                "{\"name\": \"name\", \"type\": \"string\"}" +
-                "]}";
+        String schemaString = "{\"type\":\"record\"," +
+                "\"name\":\"customer\"," +
+                "\"fields\":[{\"name\":\"id\",\"type\":\"int\"}, {\"name\":\"name\",\"type\":\"string\"}]}";
 
         Producer<String, GenericRecord> producer = new KafkaProducer<String, GenericRecord>(settings);
 

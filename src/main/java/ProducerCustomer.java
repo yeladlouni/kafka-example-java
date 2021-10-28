@@ -1,7 +1,4 @@
-import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.clients.producer.*;
 
 import java.util.Properties;
 
@@ -12,6 +9,7 @@ public class ProducerCustomer {
         settings.put("bootstrap.servers", "localhost:9092");
         settings.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         settings.put("value.serializer", "CustomerSerializer");
+        settings.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, CustomPartitioner.class);
 
         final KafkaProducer<String, Customer> producer = new KafkaProducer<String, Customer>(settings);
 
