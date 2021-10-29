@@ -1,3 +1,4 @@
+import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -21,16 +22,16 @@ public class ConsumerAvro {
 
         final String topic = "customer_avro_generic_topic";
 
-        KafkaConsumer<String, Customer> consumer = new KafkaConsumer<String, Customer>(settings);
+        KafkaConsumer<String, GenericRecord> consumer = new KafkaConsumer<String, GenericRecord>(settings);
         consumer.subscribe(Collections.singletonList(topic));
 
         Duration timeout = Duration.ofMillis(100);
 
         while (true) {
-            ConsumerRecords<String, Customer> records = consumer.poll(timeout);
+            ConsumerRecords<String, GenericRecord> records = consumer.poll(timeout);
 
-            for (ConsumerRecord<String, Customer> record : records) {
-                Customer customer = record.value();
+            for (ConsumerRecord<String, GenericRecord> record : records) {
+                GenericRecord customer = record.value();
                 System.out.println(customer);
             }
 
